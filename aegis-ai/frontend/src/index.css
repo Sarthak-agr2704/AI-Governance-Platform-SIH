@@ -1,30 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   body {
-    background-color: #0b0f19;
-    color: #f9fafb;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: #07111A !important;
+    color: #F8FAFC !important;
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    overflow-x: hidden;
   }
 }
 
-/* Custom Scrollbar for Dark Theme */
+:root {
+  --color-primary: #34D399;
+  --color-background: #07111A;
+}
+
+/* Form Inputs, Select Dropdowns & Textareas */
+input, select, textarea {
+  background-color: #0A1620 !important;
+  color: #F8FAFC !important;
+  border: 1px solid #1D3440 !important;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: #34D399 !important;
+  outline: none !important;
+  box-shadow: 0 0 10px rgba(52, 211, 153, 0.2) !important;
+}
+
+input::placeholder {
+  color: #64748B !important;
+}
+
+select option {
+  background-color: #0D1B24 !important;
+  color: #F8FAFC !important;
+}
+
+/* Custom Scrollbar for Deep Navy Theme */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0b0f19;
+  background: #07111A;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1f293d;
-  border-radius: 3px;
+  background: #1D3440;
+  border: 1px solid rgba(52, 211, 153, 0.2);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #34D399;
+}
+
+/* Champagne Gold Text Gradient */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #F3E8C9 0%, #E8D5A3 50%, #C4B282 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Emerald Teal Gradient */
+.text-teal-gradient {
+  background: linear-gradient(135deg, #67E8F9 0%, #5EEAD4 50%, #34D399 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Enterprise Spotlight Card */
+.spotlight-card {
+  position: relative;
+  background: #0D1B24;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid #1D3440;
+  border-radius: 0.875rem;
+  overflow: hidden;
+  transition: all 0.25s ease-in-out;
+}
+
+.spotlight-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: radial-gradient(ellipse at top, rgba(52, 211, 153, 0.08), transparent 70%);
+  pointer-events: none;
+}
+
+.spotlight-card:hover {
+  border-color: rgba(52, 211, 153, 0.4) !important;
+  box-shadow: 0 10px 30px -10px rgba(7, 17, 26, 0.9), 0 0 12px rgba(52, 211, 153, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Primary Emerald Button */
+.emerald-button-glow {
+  background: linear-gradient(135deg, #34D399 0%, #059669 100%);
+  color: #07111A !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 15px rgba(52, 211, 153, 0.25);
+  transition: all 0.2s ease-in-out;
+}
+
+.emerald-button-glow:hover {
+  background: linear-gradient(135deg, #6EE7B7 0%, #34D399 100%);
+  box-shadow: 0 6px 20px rgba(52, 211, 153, 0.4);
+  transform: translateY(-1px);
+}
+
+.emerald-button-glow:active {
+  transform: scale(0.98);
+}
+
+/* Animations */
+@keyframes slideUpFade {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slideUp {
+  animation: slideUpFade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }

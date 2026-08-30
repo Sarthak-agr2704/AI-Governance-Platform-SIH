@@ -18,12 +18,12 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   const { isHealthy, loading, refetch } = useHealth();
 
   return (
-    <div className="min-h-screen bg-background text-text-main flex flex-row font-sans">
+    <div className="min-h-screen bg-[#07111A] text-[#F8FAFC] flex flex-row font-sans">
       {/* Sidebar */}
       <Sidebar activePage={activePage} onSelectPage={onSelectPage} />
 
       {/* Main Container */}
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0 bg-[#07111A]">
         {/* Top Header */}
         <Header
           activePage={activePage}
@@ -33,7 +33,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         />
 
         {/* Content Area */}
-        <main className="flex-1 p-6 overflow-y-auto bg-background">
+        <main className="flex-1 p-6 overflow-y-auto bg-[#07111A]">
           {children}
         </main>
       </div>

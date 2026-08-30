@@ -11,25 +11,68 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI(
     title=settings.PROJECT_NAME,
     version=settings.VERSION,
-    openapi_url=f"{settings.API_V1_STR}/openapi.json"
+    openapi_url="/api/v1/openapi.json"
 )
 
-# Configure CORS Middleware
+# Configure CORS Middleware for all origins
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.CORS_ORIGINS,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Mount API router
-app.include_router(api_router, prefix=settings.API_V1_STR)
+# Root level health checks
+@app.get("/health")
+@app.get("/api/health")
+@app.get("/api/v1/health")
+def root_health_check():
+    return {
+        "status": "healthy",
+        "service": settings.PROJECT_NAME,
+        "version": settings.VERSION,
+        "database": "connected"
+    }
+
+# Mount API router under both /api/v1 and /api for backwards & forwards compatibility
+app.include_router(api_router, prefix="/api/v1")
+app.include_router(api_router, prefix="/api")
+
+
+def seed_demo_users():
+    from app.core.database import SessionLocal
+    from app.models.user import User
+    from app.core.security import hash_password
+
+    db = SessionLocal()
+    try:
+        demos = [
+            ("Admin Officer", "admin@aegis.ai", "DemoPass123!", "Admin"),
+            ("AI Lead Engineer", "engineer@aegis.ai", "DemoPass123!", "AI/ML Engineer"),
+        ]
+        for name, email, password, role in demos:
+            existing = db.query(User).filter(User.email == email).first()
+            if not existing:
+                user = User(
+                    name=name,
+                    email=email,
+                    password_hash=hash_password(password),
+                    role=role
+                )
+                db.add(user)
+        db.commit()
+    except Exception as e:
+        logger.error(f"Error seeding demo users: {e}")
+        db.rollback()
+    finally:
+        db.close()
 
 
 @app.on_event("startup")
 async def startup_event():
     logger.info(f"Starting {settings.PROJECT_NAME} backend in {settings.ENV} mode.")
+    seed_demo_users()
 
 
 @app.on_event("shutdown")
@@ -39,4 +82,4 @@ async def shutdown_event():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("app.main:app", host=settings.HOST, port=settings.PORT, reload=settings.DEBUG)
+    uvicorn.run("app.main:app", host=settings.HOST, port=settings.PORT, reload=False)

@@ -8,33 +8,50 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: '#0b0f19',
-        surface: {
-          DEFAULT: '#111827',
-          card: '#1e293b',
-          hover: '#334155',
-          border: '#1f293d',
+        background: '#07111A',
+        sidebar: '#09151E',
+        card: {
+          DEFAULT: '#0D1B24',
+          subtle: '#101F29',
+        },
+        border: {
+          DEFAULT: '#1D3440',
         },
         primary: {
-          DEFAULT: '#3b82f6',
-          hover: '#2563eb',
-          light: '#60a5fa',
-          indigo: '#6366f1',
+          DEFAULT: '#34D399', // Emerald/Teal
+          hover: '#059669',
+          light: '#6EE7B7',
+        },
+        teal: {
+          accent: '#5EEAD4',
+          cyan: '#67E8F9',
+        },
+        gold: {
+          DEFAULT: '#E8D5A3',
+          light: '#F3E8C9',
+          muted: '#C4B282',
+        },
+        accent: {
+          blue: '#38BDF8',
+          emerald: '#34D399',
+          yellow: '#FACC15',
+          orange: '#FB923C',
+          red: '#F87171',
         },
         status: {
-          healthy: '#22c55e',
-          warning: '#f59e0b',
-          critical: '#ef4444',
-          info: '#3b82f6',
+          healthy: '#34D399',
+          warning: '#FACC15',
+          high: '#FB923C',
+          critical: '#F87171',
         },
         text: {
-          main: '#f9fafb',
-          muted: '#9ca3af',
-          dim: '#6b7280',
+          main: '#F8FAFC',
+          secondary: '#94A3B8',
+          muted: '#64748B',
         }
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        sans: ['Outfit', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
       }
     },
